@@ -1,0 +1,20 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Big shapefiles
+TOWNSSURVEY_POLY*
+
+# Big HTML
+completions.html*
+
+# API keys
+GMAPS_API_KEY.txt
+MAPBOX_ACCESS_TOKEN.txt
