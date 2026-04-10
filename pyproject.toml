@@ -10,5 +10,7 @@ dependencies = [
     "geopandas>=1.1.1",
     "googlemaps>=4.10.0",
     "more-itertools>=10.7.0",
+    "playwright>=1.58.0",
     "requests>=2.32.4",
+    "shot-scraper>=1.9.1",
 ]

@@ -2,6 +2,8 @@
 
 A small Python project for tracking Massachusetts bike-route progress and rendering it on an interactive map.
 
+![completions.png](completions.png)
+
 ## What it does
 
 - colors completed towns on a statewide map
