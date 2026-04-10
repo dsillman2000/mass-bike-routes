@@ -1,4 +1,5 @@
 import gzip
+import json
 import os
 from math import cos, radians, sqrt
 from pathlib import Path
@@ -7,6 +8,7 @@ from typing import Any
 import folium
 import geopandas as gpd
 import pandas as pd
+from branca.element import Element
 
 MASS_BBOX = [(41.49, -73.09), (42.80, -69.59)]
 COMPLETIONS_CSV = Path(__file__).parent / "completions.csv"
@@ -230,6 +232,76 @@ def _start_marker(location: tuple[float, float], color: str, tooltip_text: str) 
     )
 
 
+def _add_street_view_click_popups(
+    folium_map: folium.Map, route_layers: list[dict[str, str]]
+) -> None:
+    """Attach click-to-confirm Street View popups to rendered route polylines.
+
+    Folium renders the route geometry as Leaflet `L.polyline` objects inside the
+    generated HTML page. The exact clicked coordinate is only known in the
+    browser, so this helper injects a small JavaScript snippet after map
+    creation. When the user clicks a route line, the script opens a popup at the
+    clicked point and offers explicit links to Google Street View and Google
+    Maps in a new browser tab.
+
+    Parameters
+    ----------
+    folium_map:
+        The map that will receive the injected JavaScript.
+    route_layers:
+        A list of dictionaries describing the rendered route polylines. Each
+        entry should contain the Leaflet variable name under `layer_name` and a
+        human-readable filename under `route_name`.
+    """
+    if not route_layers:
+        return
+
+    layer_data_json = json.dumps(route_layers)
+    map_name = folium_map.get_name()
+    script = f"""
+    window.addEventListener('load', function() {{
+        const routeLayers = {layer_data_json};
+        const mapObject = {map_name};
+
+        routeLayers.forEach((routeInfo) => {{
+            const layer = window[routeInfo.layer_name];
+            if (!layer) {{
+                return;
+            }}
+
+            layer.on('click', function(e) {{
+                const lat = e.latlng.lat.toFixed(6);
+                const lng = e.latlng.lng.toFixed(6);
+                const streetViewUrl = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${{lat}},${{lng}}`;
+                const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${{lat}},${{lng}}`;
+                const popupHtml = `
+                    <div style="min-width:220px;line-height:1.35;">
+                        <strong>${{routeInfo.route_name}}</strong><br>
+                        <span style="font-size:11px;color:#555;">${{lat}}, ${{lng}}</span>
+                        <div style="margin-top:8px;">Open Street View here?</div>
+                        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
+                            <a href="${{streetViewUrl}}" target="_blank" rel="noopener noreferrer"
+                               style="padding:4px 8px;background:#2563eb;color:white;text-decoration:none;border-radius:4px;">
+                                Street View
+                            </a>
+                            <a href="${{mapsUrl}}" target="_blank" rel="noopener noreferrer"
+                               style="padding:4px 8px;background:#f3f4f6;color:#111827;text-decoration:none;border-radius:4px;border:1px solid #d1d5db;">
+                                Maps
+                            </a>
+                        </div>
+                    </div>`;
+
+                L.popup({{maxWidth: 260}})
+                    .setLatLng(e.latlng)
+                    .setContent(popupHtml)
+                    .openOn(mapObject);
+            }});
+        }});
+    }});
+    """
+    folium_map.get_root().script.add_child(Element(script))
+
+
 def _build_route_layers(gpx_path: str, track_points: gpd.GeoDataFrame, route_is_completed: bool) -> list[Any]:
     filename = Path(gpx_path).name
     line_color = ROUTE_COMPLETED_COLOR if route_is_completed else ROUTE_PENDING_COLOR
@@ -342,17 +414,22 @@ def create_city_map() -> folium.Map:
     not_completed_track_grp = folium.FeatureGroup(name="planned tracks")
     route_paths = CDF[CDF["gpx_path"].notna()]["gpx_path"].unique()
     track_points_by_gpx = {gpx: _load_track_points(gpx) for gpx in route_paths}
+    street_view_routes: list[dict[str, str]] = []
 
     for gpx in route_paths:
         print("Adding ", gpx, " to the map...", sep="")
         route_is_completed = ROUTE_COMPLETION.get(gpx, False)
         route_layers = _build_route_layers(gpx, track_points_by_gpx[gpx], route_is_completed)
         target_group = completed_track_grp if route_is_completed else not_completed_track_grp
+        route_name = Path(gpx).name
         for route_layer in route_layers:
             target_group.add_child(route_layer)
+            if isinstance(route_layer, folium.PolyLine):
+                street_view_routes.append({"layer_name": route_layer.get_name(), "route_name": route_name})
 
     completed_track_grp.add_to(folium_map)
     not_completed_track_grp.add_to(folium_map)
+    _add_street_view_click_popups(folium_map, street_view_routes)
 
     folium.LayerControl().add_to(folium_map)
     return folium_map
