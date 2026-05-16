@@ -16,5 +16,6 @@ TOWNSSURVEY_POLY*
 completions.html*
 
 # API keys
+secrets.env
 GMAPS_API_KEY.txt
 MAPBOX_ACCESS_TOKEN.txt
