@@ -8,3 +8,6 @@ cities:
 completions:
 	uv run python3 completions.py
 	sh update-screenshot.sh
+
+server:
+	uv run python3 -m http.server
