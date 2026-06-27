@@ -65,15 +65,20 @@
 "Randolph","gpx/Canton_Holbrook_Stoughton_Avon_Randolph_Mains.gpx",1
 "Carlisle","gpx/Carlisle_Acton_mains.gpx",1
 "Acton","gpx/Carlisle_Acton_mains.gpx",1
-"Wellesley","gpx/Wellesley_Natick_Dover_Needham_mains.gpx",0
-"Natick","gpx/Wellesley_Natick_Dover_Needham_mains.gpx",0
-"Dover","gpx/Wellesley_Natick_Dover_Needham_mains.gpx",0
-"Needham","gpx/Wellesley_Natick_Dover_Needham_mains.gpx",0
-"Topsfield","gpx/Topsfield_Ipswich_Rowley_mains.gpx",0
-"Ipswich","gpx/Topsfield_Ipswich_Rowley_mains.gpx",0
-"Rowley","gpx/Topsfield_Ipswich_Rowley_mains.gpx",0
-"Haverhill","gpx/Haverhill_Merrimac_WestNewbury_Georgetown_Groveland_mains.gpx",0
-"Merrimac","gpx/Haverhill_Merrimac_WestNewbury_Georgetown_Groveland_mains.gpx",0
-"West Newbury","gpx/Haverhill_Merrimac_WestNewbury_Georgetown_Groveland_mains.gpx",0
-"Georgetown","gpx/Haverhill_Merrimac_WestNewbury_Georgetown_Groveland_mains.gpx",0
-"Groveland","gpx/Haverhill_Merrimac_WestNewbury_Georgetown_Groveland_mains.gpx",0
+"Wellesley","gpx/Wellesley_Natick_Dover_Needham_mains.gpx",1
+"Natick","gpx/Wellesley_Natick_Dover_Needham_mains.gpx",1
+"Dover","gpx/Wellesley_Natick_Dover_Needham_mains.gpx",1
+"Needham","gpx/Wellesley_Natick_Dover_Needham_mains.gpx",1
+"Topsfield","gpx/Topsfield_Ipswich_Rowley_mains.gpx",1
+"Ipswich","gpx/Topsfield_Ipswich_Rowley_mains.gpx",1
+"Rowley","gpx/Topsfield_Ipswich_Rowley_mains.gpx",1
+"Boxford","gpx/Boxford_Georgetown_Groveland_mains.gpx",1
+"Georgetown","gpx/Boxford_Georgetown_Groveland_mains.gpx",1
+"Groveland","gpx/Boxford_Georgetown_Groveland_mains.gpx",1
+"Haverhill","gpx/Haverhill_Merrimac_mains.gpx",0
+"Merrimac","gpx/Haverhill_Merrimac_mains.gpx",0
+"Amesbury","gpx/Amesbury_Newburyport_Salisbury_mains.gpx",0
+"Newburyport","gpx/Amesbury_Newburyport_Salisbury_mains.gpx",0
+"Salisbury","gpx/Amesbury_Newburyport_Salisbury_mains.gpx",0
+"West Newbury","gpx/WestNewbury_Newbury_mains.gpx",0
+"Newbury","gpx/WestNewbury_Newbury_mains.gpx",0
