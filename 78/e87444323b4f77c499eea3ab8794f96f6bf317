@@ -1,0 +1,33 @@
+completions.csv
+  h_4cc74772b10fd4 78-84,88-98
+  s_28b9cecea50f13::t_51aec06a1b883a 85-87
+gpx/Dedham_Westwood_Medfield_Walpole_Norwood_mains.gpx
+  h_4cc74772b10fd4 1-3546
+gpx/Hingham_Hull_Cohasset_mains.gpx
+  h_4cc74772b10fd4 1-3066
+gpx/Littleton_Westford_Groton_Ayer_mains.gpx
+  h_4cc74772b10fd4 1-2746
+gpx/Tyngsborough_Dracut_mains.gpx
+  h_4cc74772b10fd4 1-2742
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "78e87444323b4f77c499eea3ab8794f96f6bf317",
+  "prompts": {},
+  "humans": {
+    "h_4cc74772b10fd4": {
+      "author": "dsillman2000 <dsillman2000@yahoo.com>"
+    }
+  },
+  "sessions": {
+    "s_28b9cecea50f13": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_00dbd8b37ffe9SWjMQaE88bEXv",
+        "model": "deepseek-v4-flash"
+      },
+      "human_author": "dsillman2000 <dsillman2000@yahoo.com>"
+    }
+  }
+}
