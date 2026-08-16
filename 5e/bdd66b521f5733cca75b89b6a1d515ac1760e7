@@ -1,0 +1,14 @@
+completions.csv
+  h_4cc74772b10fd4 97-98
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "5ebdd66b521f5733cca75b89b6a1d515ac1760e7",
+  "prompts": {},
+  "humans": {
+    "h_4cc74772b10fd4": {
+      "author": "dsillman2000 <dsillman2000@yahoo.com>"
+    }
+  }
+}
